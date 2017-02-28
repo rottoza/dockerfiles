@@ -1,0 +1,22 @@
+version: '2'
+services:
+  db:
+    build:
+      context: .
+      dockerfile: Dockerfile-mysql-build
+    container_name: ictsd-mysql
+    volumes:
+      - .:/files
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile-apache-php-build
+    container_name: ictsd-php
+    volumes:
+      - .:/var/www/ictsd
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    links:
+      - db:mysql

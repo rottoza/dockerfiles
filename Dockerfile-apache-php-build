@@ -1,6 +1,6 @@
 FROM ubuntu:16.04
-RUN apt-get update
-RUN apt-get install -y apache2 \
+RUN apt update
+RUN apt install -y apache2 \
   php \
   php-mysql \
   libapache2-mod-php \
@@ -14,10 +14,12 @@ RUN apt-get install -y apache2 \
   less \
   nano \
   git \
-  wget
+  wget \
+  vim \
+  mysql-client
 RUN a2enmod rewrite
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 RUN php composer-setup.php
 RUN php -r "unlink('composer-setup.php');"
 RUN mv composer.phar /usr/local/bin/composer
-CMD ["apache2ctl", "-D", "FOREGROUND"]
+CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
