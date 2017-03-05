@@ -2,18 +2,16 @@ version: '2'
 services:
   db:
     build:
-      context: .
-      dockerfile: Dockerfile-mysql-build
-    container_name: ictsd-mysql
+      context: https://github.com/rottoza/dockerfiles.git
+      dockerfile: Dockerfile-mysql-build    
     volumes:
       - .:/files
   web:
     build:
-      context: .
-      dockerfile: Dockerfile-apache-php-build
-    container_name: ictsd-php
+      context: https://github.com/rottoza/dockerfiles.git
+      dockerfile: Dockerfile-apache-php-build    
     volumes:
-      - .:/var/www/ictsd
+      - .:/var/www
     ports:
       - "8080:80"
     depends_on:
