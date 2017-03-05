@@ -1,6 +1,6 @@
 FROM mysql:5
 RUN apt-get update
-RUN apt-get install -y nano \
+RUN apt-get install -y vim \
   less \
   ssh
 ENV MYSQL_ROOT_PASSWORD=password
