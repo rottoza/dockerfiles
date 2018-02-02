@@ -22,9 +22,9 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 RUN php composer-setup.php
 RUN php -r "unlink('composer-setup.php');"
 RUN mv composer.phar /usr/local/bin/composer
-RUN DRUSH_LATEST_RELEASE=$(curl -L -s -H 'Accept: application/json' https://github.com/drush-ops/drush/releases/latest)
-RUN DRUSH_LATEST_VERSION=$(echo $DRUSH_LATEST_RELEASE | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/')
-RUN DRUSH_ARTIFACT_URL="https://github.com/drush-ops/drush/releases/download/$DRUSH_LATEST_VERSION/drush.phar"
+ENV DRUSH_LATEST_RELEASE=$(curl -L -s -H 'Accept: application/json' https://github.com/drush-ops/drush/releases/latest)
+ENV DRUSH_LATEST_VERSION=$(echo $DRUSH_LATEST_RELEASE | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/')
+ENV DRUSH_ARTIFACT_URL="https://github.com/drush-ops/drush/releases/download/$DRUSH_LATEST_VERSION/drush.phar"
 RUN wget $DRUSH_ARTIFACT_URL
 RUN chmod +x drush.phar
 RUN mv drush.phar /usr/local/bin/drush
