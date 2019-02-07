@@ -6,6 +6,7 @@ services:
       dockerfile: Dockerfile-mysql-build    
     volumes:
       - .:/files
+    command: --max_allowed_packet=32505856
   web:
     build:
       context: https://github.com/rottoza/dockerfiles.git
