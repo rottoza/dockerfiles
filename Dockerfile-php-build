@@ -1,0 +1,24 @@
+FROM ubuntu:18.04 
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y php \
+  php-mysql \  
+  php-cli \
+  php-curl \
+  php-gd \
+  php-zip \
+  php-xml \
+  php-mbstring \
+  php-xdebug \
+  php-fpm \
+  less \
+  git \
+  wget \
+  vim \
+  mysql-client \
+  curl
+RUN a2enmod rewrite
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+RUN php composer-setup.php
+RUN php -r "unlink('composer-setup.php');"
+RUN mv composer.phar /usr/local/bin/composer
+RUN mkdir -p /run/php
+CMD ["/usr/sbin/php-fpm7.2", "-F", "-R"]

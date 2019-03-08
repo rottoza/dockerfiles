@@ -2,20 +2,31 @@ version: '2'
 services:
   db:
     build:
-      context: https://github.com/rottoza/dockerfiles.git
+      context: .
       dockerfile: Dockerfile-mysql-build    
     volumes:
       - .:/files
     command: --max_allowed_packet=32505856
-  web:
+  php:
     build:
-      context: https://github.com/rottoza/dockerfiles.git
-      dockerfile: Dockerfile-apache-php-build    
+      context: .
+      dockerfile: Dockerfile-php-build
+    volumes:
+      - .:/var/www    
+    depends_on:
+      - db
+    links:
+      - db:mysql
+  web:
+    build:      
+      context: .
+      dockerfile: Dockerfile-apache-build    
     volumes:
       - .:/var/www
     ports:
       - "8080:80"
     depends_on:
-      - db
+      - php
     links:
       - db:mysql
+      - php:php
