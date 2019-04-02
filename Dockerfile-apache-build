@@ -6,8 +6,8 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y apache2 
   vim \  
   curl \
   iputils-ping
-RUN a2enmod alias proxy_fcgi
-COPY apache2-foreground /usr/local/bin/
-COPY 000-default.conf /etc/apache2/sites-available/
+RUN a2enmod alias proxy_fcgi rewrite
+COPY config/apache2-foreground /usr/local/bin/
+COPY config/000-default.conf /etc/apache2/sites-available/
 RUN chmod +x /usr/local/bin/apache2-foreground
 CMD ["/usr/local/bin/apache2-foreground"]

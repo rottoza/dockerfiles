@@ -12,11 +12,14 @@ services:
       context: https://github.com/rottoza/dockerfiles.git
       dockerfile: Dockerfile-php-build
     volumes:
-      - .:/var/www    
+      - .:/var/www
+    ports:
+      - "9001:9001"
     depends_on:
       - db
     links:
       - db:mysql
+      - mail:mail
   web:
     build:      
       context: https://github.com/rottoza/dockerfiles.git
@@ -30,3 +33,10 @@ services:
     links:
       - db:mysql
       - php:php
+  mail:
+    build:
+      context: ./config
+      dockerfile: Dockerfile-mailhog-build
+    ports:
+      - "1025:1025"
+      - "8025:8025"

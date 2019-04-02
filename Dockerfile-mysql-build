@@ -4,3 +4,4 @@ RUN apt-get install -y vim \
   less \
   ssh
 ENV MYSQL_ROOT_PASSWORD=password
+ENV MYSQL_DATABASE=dockerdb
