@@ -3,13 +3,13 @@ services:
   db:
     build:
       context: https://github.com/rottoza/dockerfiles.git#:config
-      dockerfile: Dockerfile-mysql-build    
+      dockerfile: Dockerfile-mysql-build
     volumes:
       - .:/files
     command: --max_allowed_packet=32505856
   php:
     build:
-            context: https://github.com/rottoza/dockerfiles.git#:config
+      context: https://github.com/rottoza/dockerfiles.git#:config
       dockerfile: Dockerfile-php-build
     volumes:
       - .:/var/www
@@ -21,9 +21,9 @@ services:
       - db:mysql
       - mail:mail
   web:
-    build:      
-    context: https://github.com/rottoza/dockerfiles.git#:config
-      dockerfile: Dockerfile-apache-build    
+    build:
+      context: https://github.com/rottoza/dockerfiles.git#:config
+      dockerfile: Dockerfile-apache-build
     volumes:
       - .:/var/www
     ports:
@@ -35,7 +35,7 @@ services:
       - php:php
   mail:
     build:
-      context: ./config
+      context: https://github.com/rottoza/dockerfiles.git#:config
       dockerfile: Dockerfile-mailhog-build
     ports:
       - "1025:1025"
